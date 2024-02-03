@@ -29,8 +29,11 @@
         <p>And much more!</p>
       </div>
       <form class="content__container__form">
-        <label for="email">Email address</label>
-        <input type="email" placeholder=" email@company.com" id="email" autocomplete="none">
+        <div class="contentt__container__form__labels">
+          <label for="email">Email address</label>
+          <span class="content__container__form__labels__error d-none">Valid Email Required</span>
+        </div>
+        <input type="email" placeholder=" email@company.com" id="email" autocomplete="off" class="email">
         <input type="button" value="Subscribe to monthly newsletter" id="btn-submit">
       </form>
 
@@ -56,7 +59,8 @@
       $container = d.querySelector(".container"),
       $containerSuccess = d.querySelector(".container__success"),
       $emailOutput = d.querySelector("#email-output"),
-      $inputEmail = d.querySelector("#email");
+      $inputEmail = d.querySelector("#email"),
+      $errorMessage = d.querySelector(".content__container__form__labels__error");
 
     w.addEventListener("resize", e => {
       if (w.innerWidth > 767) {
@@ -68,20 +72,39 @@
 
     d.addEventListener("click", e => {
       if (e.target.matches("#btn-submit")) {
-        if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test($inputEmail.value)) {
-
+        if (validateEmail($inputEmail.value)) {
           $container.classList.add("d-none");
           $containerSuccess.classList.remove("d-none");
-          $emailOutput.textContent = $inputEmail.value;
         }
       }
       if (e.target.matches(".container__success__dismiss__btn")) {
         $containerSuccess.classList.add("d-none");
         $container.classList.remove("d-none");
         $inputEmail.value = "";
-
       }
-    })
+    });
+
+    $inputEmail.addEventListener("keyup", e => {
+      validateEmail(e.target.value);
+    });
+
+    function validateEmail(email) {
+      let result = false;
+      if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test(email)) {
+        result = true;
+        $emailOutput.textContent = $inputEmail.value;
+        if ($inputEmail.classList.contains("error-status")) $inputEmail.classList.remove("error-status");
+        if (!$errorMessage.classList.contains("d-none")) $errorMessage.classList.add("d-none");
+      } else {
+        result= false;
+        $inputEmail.classList.add("error-status");
+        $errorMessage.classList.remove("d-none");
+      }
+
+      return result;
+    }
+
+
   </script>
 </body>
 

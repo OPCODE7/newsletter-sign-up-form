@@ -86,7 +86,7 @@ body {
     font-weight: 700;
 }
 
-.content__container__form>input[type="email"] {
+.email{
     margin: 10px 0;
     padding: 10px;
     outline: none;
@@ -95,7 +95,7 @@ body {
     cursor: pointer;
 }
 
-.content__container__form>input[type="email"]:hover {
+.email:hover {
     border-color: var(--dark-slate-grey);
 }
 
@@ -115,6 +115,16 @@ body {
 .container__success__dismiss__btn:hover {
     background: linear-gradient(to right, hsl(345, 89%, 57%), var(--tomato));
     box-shadow: var(--tomato) 0px 10px 20px -5px;
+}
+
+.contentt__container__form__labels{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+.content__container__form__labels__error{
+    color: var(--tomato);
 }
 
 .container__success {
@@ -162,6 +172,16 @@ body {
 
 .d-none {
     display: none;
+}
+
+.error-status{
+    border: 1px solid var(--tomato);
+    background-color: #FFE8E6;
+    color: var(--tomato);
+}
+
+.error-status:hover{
+    border: 1px solid var(--tomato);
 }
 
 @media(min-width: 767px) {
