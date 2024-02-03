@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+</head>
+
+<body>
+  <div class="container">
+    <img src="assets/images/illustration-sign-up-mobile.svg" alt="ilustration-sign-up"
+      class="container__ilustration__image">
+    <section class="content__container">
+      <h1 class="content__container__title">Stay updated!</h1>
+      <p class="content_container__info">Join 60,000+ product managers receiving monthly updates on:</p>
+      <div class="content__container__item__service">
+        <img src="assets/images/icon-list.svg" alt="icon-list">
+        <p>Product discovery and building what matters</p>
+      </div>
+      <div class="content__container__item__service">
+        <img src="assets/images/icon-list.svg" alt="icon-list">
+        <p>Measuring to ensure updates are a success</p>
+      </div>
+      <div class="content__container__item__service">
+        <img src="assets/images/icon-list.svg" alt="icon-list">
+        <p>And much more!</p>
+      </div>
+      <form class="content__container__form">
+        <label for="email">Email address</label>
+        <input type="email" placeholder=" email@company.com" id="email" autocomplete="none">
+        <input type="button" value="Subscribe to monthly newsletter" id="btn-submit">
+      </form>
+
+    </section>
+  </div class="container">
+
+
+  <section class="container__success d-none">
+    <div class="container__success__content">
+      <img src="assets/images/icon-success.svg" alt="icon-success" class="container__success__content__icon">
+      <h2 class="container__success__content__title">Thanks for subscribing!</h2>
+      <p class="container__success__content__info">A confirmation email has been sent to
+        <b id="email-output">example@email</b>
+        Please open it and click the button inside to confirm your subscription.
+      </p>
+    </div>
+    <button class="container__success__dismiss__btn">Dismiss message</button>
+  </section>
+
+  <script>
+    const d = document, w = window,
+      $ilustration = d.querySelector(".container__ilustration__image"),
+      $container = d.querySelector(".container"),
+      $containerSuccess = d.querySelector(".container__success"),
+      $emailOutput = d.querySelector("#email-output"),
+      $inputEmail = d.querySelector("#email");
+
+    w.addEventListener("resize", e => {
+      if (w.innerWidth > 767) {
+        $ilustration.src = "assets/images/illustration-sign-up-desktop.svg";
+      } else {
+        $ilustration.src = "assets/images/illustration-sign-up-mobile.svg";
+      }
+    });
+
+    d.addEventListener("click", e => {
+      if (e.target.matches("#btn-submit")) {
+        if (/^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/.test($inputEmail.value)) {
+
+          $container.classList.add("d-none");
+          $containerSuccess.classList.remove("d-none");
+          $emailOutput.textContent = $inputEmail.value;
+        }
+      }
+      if (e.target.matches(".container__success__dismiss__btn")) {
+        $containerSuccess.classList.add("d-none");
+        $container.classList.remove("d-none");
+        $inputEmail.value = "";
+
+      }
+    })
+  </script>
+</body>
+
+</html>
